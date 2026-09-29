@@ -1,0 +1,17 @@
+import { NextRequest, NextResponse } from "next/server";
+
+export async function POST(request: NextRequest) {
+  const payload = await request.json();
+
+  const prNumber = payload.pull_request?.number;
+  const repositoryName = payload.repository?.name;
+  const diffUrl = payload.pull_request?.diff_url;
+
+  console.log("GitHub Pull Request Webhook:", {
+    prNumber,
+    repositoryName,
+    diffUrl,
+  });
+
+  return NextResponse.json({ received: true }, { status: 200 });
+}
